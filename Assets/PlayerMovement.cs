@@ -6,13 +6,25 @@ public class PlayerMovement : MonoBehaviour {
 	// Use this for initialization
 
 	public float speed;
+	public float firedelay;
+
 
 	void Start () {
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//if( Input.GetKeyDown( KeyCode.Space ) )
+		if( Input.GetKeyDown( KeyCode.Space ) ){
+
+			GameObject gun = transform.Find ("ShotSpawn").gameObject;
+		
+			if (gun != null) {
+				GameObject shot = (GameObject)Resources.Load (@"Shot");
+				Instantiate (shot, gun.transform.position, gun.transform.rotation);
+			}
+
+
+		}
 			
 		/* Movement */
 		if (Input.GetKey (KeyCode.RightArrow)) {

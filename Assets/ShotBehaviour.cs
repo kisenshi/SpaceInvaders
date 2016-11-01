@@ -15,5 +15,8 @@ public class ShotBehaviour : MonoBehaviour {
 		Vector3 position = this.transform.position;
 		position.y += speed;
 		this.transform.position = position;
+
+		if (position.y >= 11.5)
+			Destroy (gameObject);
 	}
 }
