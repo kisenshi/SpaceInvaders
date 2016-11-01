@@ -6,21 +6,31 @@ public class PlayerMovement : MonoBehaviour {
 	// Use this for initialization
 
 	public float speed;
-	public float firedelay;
+	public int firedelay;
 
+	private int counter;
 
 	void Start () {
+		counter = firedelay;
+	}
+
+	private void Shoot(){
+		GameObject gun = transform.Find ("ShotSpawn").gameObject;
+
+		if (gun != null) {
+			GameObject shot = (GameObject)Resources.Load (@"Shot");
+			Instantiate (shot, gun.transform.position, gun.transform.rotation);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if( Input.GetKeyDown( KeyCode.Space ) ){
-
-			GameObject gun = transform.Find ("ShotSpawn").gameObject;
 		
-			if (gun != null) {
-				GameObject shot = (GameObject)Resources.Load (@"Shot");
-				Instantiate (shot, gun.transform.position, gun.transform.rotation);
+		if( Input.GetKey( KeyCode.Space ) ){
+
+			if (counter >= firedelay) {
+				Shoot ();
+				counter = 0;
 			}
 
 
@@ -38,5 +48,7 @@ public class PlayerMovement : MonoBehaviour {
 			position.x -= speed;
 			this.transform.position = position;
 		}
+
+		counter++;
 	}
 }
